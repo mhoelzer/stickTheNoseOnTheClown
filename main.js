@@ -3,15 +3,13 @@ let startButton = document.getElementById("start");
 let sanitySpan = document.getElementById("sanitySpan");
 
 let interval;
-let started = false;
 let accurateClick = false;
-let timeToClick = 3; // no time limit to win though
-let sanity = true;
 let sanityPoints = 3; // ["SA", "NI", "TY"]
 let clownsNeeded = 5;
 let clownImage = document.createElement("img");
 clownImage.classList.add("clownImage");
 playSpace.append(clownImage);
+
 let playSpaceWidth = window
     .getComputedStyle(playSpace)
     .getPropertyValue("width")
@@ -22,12 +20,7 @@ let playSpaceHeight = window
     .slice(0, -2);
 
 function startGame() {
-    // playSpace.addEventListener("click", accuracyCheck);
-    // started = true;
-    // if (started = false){
     sadClownEmergence();
-    // 	started = true
-    // }
 }
 
 function showSadClown() {
@@ -36,10 +29,10 @@ function showSadClown() {
         .getComputedStyle(clownImage)
         .getPropertyValue("width")
         .slice(0, -2);
-    // console.log(typeof clownImageWidth)
     let horzPlaySpace = playSpaceWidth - clownImageWidth;
     let vertPlaySpace = playSpaceHeight - clownImageWidth;
-    console.log(horzPlaySpace);
+	console.log(horzPlaySpace);
+	console.log((horzPlaySpace - 0 + 1) + 0)
     let x = Math.floor(Math.random() * (horzPlaySpace - 0 + 1) + 0);
     let y = Math.floor(Math.random() * (vertPlaySpace - 0 + 1) + 0);
     // let x = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
@@ -142,7 +135,6 @@ function sanityCheck() {
 function resetRound() {
     location.reload();
 }
-
 
 // boundaries for images: https://stackoverflow.com/a/42753366
 // https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle
