@@ -7,12 +7,27 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-		<h1>Stick the Nose on the Clown!</h1>
-		<button id="resetRoundButton" onclick="resetRound()">Reset round</button>
-		<!-- <button id="doubleDutyButton" onclick="doubleDutyButton()">Reset round</button> -->
-		<button id="start" onclick="startGame()">Start  game</button>
-		<div>SANITY: <span id="sanitySpan">3</span></div>
-		<div id="playSpace"></div>
+        <div id="clowninAround">
+            <h1 id="title">Stick the Nose on the Clown!</h1>
+            <div id="instructions">
+                <p>
+                    Hello hello! This is
+                    <span id="littleTitle">Stick the Nose on the Clown!</span>
+                    If you don't know what to do, read the title.
+                </p>
+                <p>Tips:</p>
+                <ul>
+                    <li>Put on <span id="howManyNoses"></span> to win.</li>
+                    <li>Each miss takes away 1 of your sanity.</li>
+                    <li>If you lose all of your sanity, you lose the game.</li>
+                </ul>
+            </div>
+            <button id="doubleDutyButton" onclick="playOrReset()">
+                Let's play the game!
+            </button>
+            <div>SANITY: <span id="sanitySpan">3</span></div>
+            <div id="playSpace"></div>
+        </div>
         <script src="main.js"></script>
     </body>
 </html>

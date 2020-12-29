@@ -1,11 +1,16 @@
 let playSpace = document.getElementById("playSpace");
-let startButton = document.getElementById("start");
 let sanitySpan = document.getElementById("sanitySpan");
+let doubleDutyButton = document.getElementById("doubleDutyButton");
+let instructions = document.getElementById("instructions")
+let howManyNoses = document.getElementById("howManyNoses")
 
 let interval;
+let started = false;
 let accurateClick = false;
 let sanityPoints = 3; // ["SA", "NI", "TY"]
-let clownsNeeded = 5;
+let clownsNeeded = 7;
+howManyNoses.innerHTML += `${clownsNeeded} noses`
+
 let clownImage = document.createElement("img");
 clownImage.classList.add("clownImage");
 playSpace.append(clownImage);
@@ -19,98 +24,84 @@ let playSpaceHeight = window
     .getPropertyValue("height")
     .slice(0, -2);
 
+function playOrReset() {
+    if (!started) {
+		doubleDutyButton.innerHTML = "Start over :(";
+		instructions.style.display = "none"
+		playSpace.style.display = "block"
+        startGame();
+    } else {
+        resetGame();
+    }
+}
+
 function startGame() {
+    started = true;
     sadClownEmergence();
 }
 
-function showSadClown() {
-    // (max-min+1)+min)
+function sadClownEmergence() {
+    interval = setInterval(() => {
+        createSadClown();
+    }, 2000);
+}
+
+function createSadClown() {
     let clownImageWidth = window
         .getComputedStyle(clownImage)
         .getPropertyValue("width")
         .slice(0, -2);
-    let horzPlaySpace = playSpaceWidth - clownImageWidth;
-    let vertPlaySpace = playSpaceHeight - clownImageWidth;
-	console.log(horzPlaySpace);
-	console.log((horzPlaySpace - 0 + 1) + 0)
-    let x = Math.floor(Math.random() * (horzPlaySpace - 0 + 1) + 0);
-    let y = Math.floor(Math.random() * (vertPlaySpace - 0 + 1) + 0);
-    // let x = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-    // const y = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+    let widthAvailable = playSpaceWidth - clownImageWidth;
+    let heightAvailable = playSpaceHeight - clownImageWidth;
+    let x = Math.floor(Math.random() * widthAvailable);
+    let y = Math.floor(Math.random() * heightAvailable);
     clownImage.src = "images/sadClown.png";
-    clownImage.style.position = "relative";
     clownImage.style.left = x + "px";
     clownImage.style.top = y + "px";
     playSpace.addEventListener("click", accuracyCheck);
 }
 
-function sadClownEmergence() {
-    // if (started = true){
-    interval = setInterval(() => {
-        // if (started = true){
-        showSadClown();
-        // playSpace.addEventListener("click", accuracyCheck);
-        // }
-    }, 2000);
-    // }
-}
-
 function accuracyCheck(event) {
     let whatWasClicked = event.target;
-    console.log(whatWasClicked.classList[0] === "clownImage");
     if (whatWasClicked.classList[0] === "clownImage") {
         accurateClick = true;
-    } else if (!whatWasClicked.classList[0] === "clownImage") {
+    } else if (!whatWasClicked.classList[0] === "clownImage") { // or if no click at all???
         accurateClick = false;
     }
-    // console.log(whatWasClicked === false)
-    // if (whatWasClicked) {
-    // }
     clickStatus();
-    // return accurateClick;
 }
 
 function clickStatus() {
-    console.log(clownsNeeded);
-    // clownsNeeded--;
     if (clownsNeeded === 0) {
         youWin();
     } else if (accurateClick) {
-        console.log("eeeee");
         clickSuccess();
     } else if (!accurateClick) {
         clickFail();
     }
-    // showSadClown()
     accurateClick = false;
     noMoreClicking();
-    // return
 }
 
 function youWin() {
-    console.log("you win");
     playSpace.append("you win");
     stopTheGame();
 }
 
 function clickSuccess() {
-    console.log("success");
     clownsNeeded--;
     clownImage.src = "images/happyClown.png";
-    // playSpace.removeEventListener("click", accuracyCheck);
 }
 
 function clickFail() {
-    console.log("no");
     sanityPoints--;
     sanitySpan.innerHTML = sanityPoints;
     clownImage.src = "images/youMissed.png";
-    // playSpace.removeEventListener("click", accuracyCheck);
     sanityCheck();
 }
 
 function finalFailure() {
-    console.log("you lost");
+    alert("you lost");
     clownImage.src = "images/lostSanity.png";
     stopTheGame();
 }
@@ -127,12 +118,10 @@ function stopTheGame() {
 function sanityCheck() {
     if (sanityPoints === 0) {
         finalFailure();
-    } else {
-        console.log("sanity check");
-    }
+    } 
 }
 
-function resetRound() {
+function resetGame() {
     location.reload();
 }
 

@@ -2,10 +2,22 @@
 	box-sizing: border-box;
 }
 
-body {
+#clowninAround {
 	display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: space-around;
+    align-items: center;
+	/* align-content: space-around; */
 	flex-direction: column;
-	align-content: center;
+	/* align-content: center; */
+}
+
+#doubleDutyButton {
+	/* width: 100px; */
+	/* justify-content: center; */
+	width: fit-content;
+	padding: 0px 10px;
+	/* display: flex; */
 }
 
 #playSpace {
@@ -14,9 +26,10 @@ body {
 	height: 85vh;
 	/* margin: 0 auto; */
 	background-color: green;
-	/* border: blue 2px solid; */
+	display: none;
 }
 
 .clownImage {
 	width: 4vw;
+	position: relative;
 }
