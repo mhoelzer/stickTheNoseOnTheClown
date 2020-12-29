@@ -1,8 +1,14 @@
 #playSpace {
 	cursor: url("images/nose.png"), auto;
+	width: 800px;
+	height: 800px;
 }
 
-img {
+/* img {
 	width: 10%;
 	/* height: 50%; */
+
+
+.clownImage {
+	width: 10%;
 }

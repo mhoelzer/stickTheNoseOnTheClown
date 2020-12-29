@@ -8,8 +8,9 @@ let sanity = true;
 let sanityPoints = 3; // ["SA", "NI", "TY"]
 let clownsNeeded = 10;
 let clownImage = document.createElement("img");
-clownImage.classList.add = "clownImage";
+clownImage.classList.add("clownImage");
 playSpace.append(clownImage);
+playSpace.addEventListener("click", accuracyCheck);
 
 document.body.append("You have" + sanityPoints)
 
@@ -28,30 +29,32 @@ function showSadClown() {
 	clownImage.style.position = "absolute";
 	clownImage.style.left = x + "px";
 	clownImage.style.top = y + "px";
-	document.body.addEventListener("click", accuracyCheck);
 }
 
 function sadClownEmergence() {
 	// if (started = true){
     interval = setInterval(() => {
-        if (started = true){
+        // if (started = true){
 			showSadClown()
 			
-		}
+		// }
 	}, 2000);
 // }
 }
 
 function accuracyCheck(event) {
-	let whatWasClicked = event.currentTarget;
-	if (whatWasClicked.classList === "clownImage"){
+	let whatWasClicked = event.target;
+	console.log(whatWasClicked.classList[0] === "clownImage")
+	if (whatWasClicked.classList[0] === "clownImage"){
 		accurateClick = true;
+	} else if (!whatWasClicked.classList[0] === "clownImage") {
+		accurateClick = false
 	}
     // console.log(whatWasClicked === false)
     // if (whatWasClicked) {
 	// }
 	clickStatus();
-    return accurateClick;
+    // return accurateClick;
 }
 
 function clickStatus() {
@@ -66,15 +69,12 @@ function clickStatus() {
 	}
 	// showSadClown()
 	accurateClick = false;
-	return 
-    // setInterval(() => {
-        clownImage.src = "images/sadClown.png";
-        // clownsNeeded--;
-    // }, 2000);
+	// return 
 }
 
 function youWin() {
 	console.log("you win");
+	playSpace.append("you win")
 	clearInterval(interval)
 }
 
@@ -99,6 +99,7 @@ function clickFail() {
 
 function finalFailure() {
 	console.log("you lost");
+	clownImage.src = "images/lostSanity.png";
 	clearInterval(interval)
 }
 
