@@ -14,32 +14,44 @@ playSpace.append(clownImage);
 document.body.append("You have" + sanityPoints)
 
 function startGame() {
-	started = true;
-		sadClownEmergence();
+	// started = true;
+	// if (started = false){
+		sadClownEmergence()
+	// 	started = true
+	// }
+}
+
+function showSadClown() {
+	let x = Math.floor(Math.random() * 500);
+    let y = Math.floor(Math.random() * 500);
+	clownImage.src = "images/sadClown.png";
+	clownImage.style.position = "absolute";
+	clownImage.style.left = x + "px";
+	clownImage.style.top = y + "px";
+	document.body.addEventListener("click", accuracyCheck);
 }
 
 function sadClownEmergence() {
 	// if (started = true){
     interval = setInterval(() => {
-        let x = Math.floor(Math.random() * 500);
-        let y = Math.floor(Math.random() * 500);
-        clownImage.src = "images/sadClown.png";
-        clownImage.style.position = "absolute";
-        clownImage.style.left = x + "px";
-        clownImage.style.top = y + "px";
-        clownImage.addEventListener("click", accuracyCheck);
-        clickStatus();
+        if (started = true){
+			showSadClown()
+			
+		}
 	}, 2000);
 // }
 }
 
 function accuracyCheck(event) {
-    let whatWasClicked = event.currentTarget;
+	let whatWasClicked = event.currentTarget;
+	if (whatWasClicked.classList === "clownImage"){
+		accurateClick = true;
+	}
     // console.log(whatWasClicked === false)
     // if (whatWasClicked) {
-    accurateClick = true;
-    // }
-    return true;
+	// }
+	clickStatus();
+    return accurateClick;
 }
 
 function clickStatus() {
@@ -51,23 +63,29 @@ function clickStatus() {
         clickSuccess();
     } else if (!accurateClick) {
         clickFail();
-    }
-    setInterval(() => {
+	}
+	// showSadClown()
+	accurateClick = false;
+	return 
+    // setInterval(() => {
         clownImage.src = "images/sadClown.png";
         // clownsNeeded--;
-        accurateClick = false;
-    }, 2000);
+    // }, 2000);
 }
 
 function youWin() {
-    console.log("you win");
+	console.log("you win");
+	clearInterval(interval)
 }
 
 function clickSuccess() {
     console.log("success");
     clownImage.src = "images/happyClown.png";
-    clownsNeeded--;
-    // accurateClick = false;
+	clownsNeeded--;
+	// setInterval(() => {
+    //     clownImage.src = "images/sadClown.png";
+    //     accurateClick = false;
+    // }, 2000);
 }
 
 function clickFail() {
@@ -81,7 +99,6 @@ function clickFail() {
 
 function finalFailure() {
 	console.log("you lost");
-	started = false
 	clearInterval(interval)
 }
 
