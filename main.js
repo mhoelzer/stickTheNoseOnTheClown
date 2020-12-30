@@ -1,3 +1,9 @@
+/* TODOS:
+- no clicking leads to 1 lost sanity point. do something with settimeout?
+- make more mobile-friendly
+- sound effects
+*/
+
 let doubleDutyButton = document.getElementById("doubleDutyButton");
 let howManyNoses = document.getElementById("howManyNoses");
 let instructions = document.getElementById("instructions");
@@ -62,7 +68,7 @@ function sadClownEmergence() {
         createSadClown();
         // secondInterval = setTimeout(() => {
         // 	clickStatus();
-        // }, 2000);
+        // }, 1900);
     }, 2000);
 }
 
