@@ -110,6 +110,7 @@ function clickStatus() {
 }
 
 function youWin() {
+	nosesSpan.innerHTML = clownsNeeded;
     clownImage.src = "images/happyClown.png";
     clownImage.style.width = "300px";
     playSpaceText.append("You Win!!!");
