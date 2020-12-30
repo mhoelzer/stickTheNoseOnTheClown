@@ -1,20 +1,34 @@
-let playSpace = document.getElementById("playSpace");
-let sanitySpan = document.getElementById("sanitySpan");
 let doubleDutyButton = document.getElementById("doubleDutyButton");
-let instructions = document.getElementById("instructions")
-let howManyNoses = document.getElementById("howManyNoses")
+let howManyNoses = document.getElementById("howManyNoses");
+let instructions = document.getElementById("instructions");
+let nosesDiv = document.getElementById("nosesDiv");
+let nosesSpan = document.getElementById("nosesSpan");
+let playSpace = document.getElementById("playSpace");
+let sanityDiv = document.getElementById("sanityDiv");
+let sanitySpan = document.getElementById("sanitySpan");
+let title = document.getElementById("title");
 
 let interval;
-let started = false;
+let secondInterval;
+
 let accurateClick = false;
-let sanityPoints = 3; // ["SA", "NI", "TY"]
-let clownsNeeded = 7;
-howManyNoses.innerHTML += `${clownsNeeded} noses`
+let started = false;
+
+let sanityPoints = 3;
+sanitySpan.innerHTML += `${sanityPoints}`;
+
+let clownsNeeded = 5;
+howManyNoses.innerHTML += `${clownsNeeded} noses`;
+nosesSpan.innerHTML = clownsNeeded;
+
+let past = 0;
+let present = 0;
 
 let clownImage = document.createElement("img");
 clownImage.classList.add("clownImage");
+let playSpaceText = document.createElement("h1");
+playSpaceText.classList.add("playSpaceText");
 playSpace.append(clownImage);
-
 let playSpaceWidth = window
     .getComputedStyle(playSpace)
     .getPropertyValue("width")
@@ -26,9 +40,12 @@ let playSpaceHeight = window
 
 function playOrReset() {
     if (!started) {
-		doubleDutyButton.innerHTML = "Start over :(";
-		instructions.style.display = "none"
-		playSpace.style.display = "block"
+        doubleDutyButton.innerHTML = "Start over :(";
+        instructions.style.display = "none";
+        title.style.display = "none";
+        nosesDiv.style.display = "block";
+        playSpace.style.display = "block";
+        sanityDiv.style.display = "block";
         startGame();
     } else {
         resetGame();
@@ -43,6 +60,9 @@ function startGame() {
 function sadClownEmergence() {
     interval = setInterval(() => {
         createSadClown();
+        // secondInterval = setTimeout(() => {
+        // 	clickStatus();
+        // }, 2000);
     }, 2000);
 }
 
@@ -65,31 +85,40 @@ function accuracyCheck(event) {
     let whatWasClicked = event.target;
     if (whatWasClicked.classList[0] === "clownImage") {
         accurateClick = true;
-    } else if (!whatWasClicked.classList[0] === "clownImage") { // or if no click at all???
+        clownsNeeded--;
+        present++;
+    } else if (!whatWasClicked.classList[0] === "clownImage") {
         accurateClick = false;
     }
     clickStatus();
 }
 
 function clickStatus() {
+    console.log({ present, past });
     if (clownsNeeded === 0) {
         youWin();
     } else if (accurateClick) {
         clickSuccess();
-    } else if (!accurateClick) {
+    } else if (!accurateClick || past === present) {
+        console.log({ present, past });
+        present++;
         clickFail();
     }
     accurateClick = false;
+    past = present;
     noMoreClicking();
 }
 
 function youWin() {
-    playSpace.append("you win");
+    clownImage.src = "images/happyClown.png";
+    clownImage.style.width = "300px";
+    playSpaceText.append("You Win!!!");
+    playSpace.append(playSpaceText);
     stopTheGame();
 }
 
 function clickSuccess() {
-    clownsNeeded--;
+    nosesSpan.innerHTML = clownsNeeded;
     clownImage.src = "images/happyClown.png";
 }
 
@@ -101,8 +130,10 @@ function clickFail() {
 }
 
 function finalFailure() {
-    alert("you lost");
     clownImage.src = "images/lostSanity.png";
+    clownImage.style.width = "300px";
+    playSpaceText.append("You Lost >:)");
+    playSpace.append(playSpaceText);
     stopTheGame();
 }
 
@@ -113,12 +144,13 @@ function noMoreClicking() {
 function stopTheGame() {
     noMoreClicking();
     clearInterval(interval);
+    clearTimeout(secondInterval);
 }
 
 function sanityCheck() {
     if (sanityPoints === 0) {
         finalFailure();
-    } 
+    }
 }
 
 function resetGame() {

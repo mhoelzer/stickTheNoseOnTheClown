@@ -10,13 +10,19 @@
         <div id="clowninAround">
             <h1 id="title">Stick the Nose on the Clown!</h1>
             <div id="instructions">
+                <div id="openingClown">
+                    <img
+                        src="images/happyClown.png"
+                        style="width: 20vw; text-align: center"
+                    />
+                </div>
                 <p>
                     This is
                     <span id="littleTitle">Stick the Nose on the Clown!</span>
                     If you don't know what to do, read the title.
                     <!-- These clowns are missing their noses, and the only way to make them happy is to give them back -->
                 </p>
-                <p>Tips:</p>
+                <h2>Rules:</h2>
                 <ul>
                     <li>Put on <span id="howManyNoses"></span> to win.</li>
                     <li>Each miss takes away 1 of your sanity.</li>
@@ -26,7 +32,10 @@
             <button id="doubleDutyButton" onclick="playOrReset()">
                 Let's play the game!
             </button>
-            <div>SANITY: <span id="sanitySpan">3</span></div>
+            <!-- <div id="group"> -->
+            <div id="sanityDiv">SANITY: <span id="sanitySpan"></span></div>
+            <div id="nosesDiv">NOSES LEFT: <span id="nosesSpan"></span></div>
+            <!-- </div> -->
             <div id="playSpace"></div>
         </div>
         <script src="main.js"></script>

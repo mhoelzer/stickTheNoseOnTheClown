@@ -1,35 +1,65 @@
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: "Impact";
+}
+
+body {
+    background-color: rgba(11, 255, 11, 0.5);
+    font-size: x-large;
 }
 
 #clowninAround {
-	display: flex;
-    /* flex-wrap: wrap; */
+    display: flex;
     justify-content: space-around;
     align-items: center;
-	/* align-content: space-around; */
-	flex-direction: column;
-	/* align-content: center; */
+    flex-direction: column;
+}
+
+#openingClown {
+    display: flex;
+    justify-content: center;
 }
 
 #doubleDutyButton {
-	/* width: 100px; */
-	/* justify-content: center; */
-	width: fit-content;
-	padding: 0px 10px;
-	/* display: flex; */
+    width: fit-content;
+    padding: 0px 10px;
+    font-size: 3vh;
+    border-radius: 25px 15px;
+}
+
+/* #group {
+	display: flex;
+	justify-content: space-between;
+} */
+#nosesDiv {
+    display: none;
+}
+#sanityDiv {
+    display: none;
 }
 
 #playSpace {
-	cursor: url("images/nose.png"), auto;
-	width: 98vw;
-	height: 85vh;
-	/* margin: 0 auto; */
-	background-color: green;
-	display: none;
+    cursor: url("images/nose.png"), auto;
+    width: 98vw;
+    height: 86vh;
+    /* height: 90vh; */
+    display: none;
+}
+.playSpaceText {
+    display: flex;
+    justify-content: center;
+    font-size: 70px;
+    background-color: #0084ff;
+    background-image: radial-gradient(circle, #0084ff, #ff3dbe);
+    background-size: 60%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    -webkit-text-stroke: 3px rgb(251, 255, 0);
 }
 
 .clownImage {
-	width: 4vw;
-	position: relative;
+    width: 4vw;
+    position: relative;
 }
